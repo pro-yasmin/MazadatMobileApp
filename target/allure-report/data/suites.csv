@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","0","beforeSuite","Default Suite","Sun Aug 17 14:57:23 GMT+03:00 2025","broken","Sun Aug 17 14:57:23 GMT+03:00 2025","appTests.StaysTest","MazadatMobileApp","appTests.StaysTest","beforeSuite"
+"","1","testtwo","Default Suite","Sun Aug 17 11:57:48 GMT+03:00 2025","passed","Sun Aug 17 11:57:48 GMT+03:00 2025","booking.tests.StaysTest","MazadatMobileApp","booking.tests.StaysTest","testtwo"
+"","1","testtwo","Default Suite","Sun Aug 17 14:56:32 GMT+03:00 2025","passed","Sun Aug 17 14:56:32 GMT+03:00 2025","appTests.StaysTest","MazadatMobileApp","appTests.StaysTest","testtwo"
+"","8095","testLoginWithMail","Default Suite","Sun Aug 17 15:08:49 GMT+03:00 2025","passed","Sun Aug 17 15:08:57 GMT+03:00 2025","appTests.StaysTest","MazadatMobileApp","appTests.StaysTest","testLoginWithMail"
+"","8171","testLoginWithMail","Default Suite","Sun Aug 17 11:56:00 GMT+03:00 2025","passed","Sun Aug 17 11:56:08 GMT+03:00 2025","booking.tests.StaysTest","MazadatMobileApp","booking.tests.StaysTest","testLoginWithMail"

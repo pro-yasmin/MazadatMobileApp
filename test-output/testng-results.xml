@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="3" total="4" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-11-10T09:53:04 AST" name="Default suite" finished-at="2024-11-10T09:54:28 AST" duration-ms="83425">
+    <groups>
+    </groups>
+    <test started-at="2024-11-10T09:53:04 AST" name="Default test" finished-at="2024-11-10T09:54:28 AST" duration-ms="83425">
+      <class name="appTests.StaysTest">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:appTests.StaysTest@aba625]" started-at="2024-11-10T09:53:04 AST" name="beforeSuite" finished-at="2024-11-10T09:53:04 AST" duration-ms="216" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeSuite -->
+        <test-method is-config="true" signature="beforeClass()[pri:0, instance:appTests.StaysTest@aba625]" started-at="2024-11-10T09:53:04 AST" name="beforeClass" finished-at="2024-11-10T09:53:34 AST" duration-ms="29392" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClass -->
+        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:appTests.StaysTest@aba625]" started-at="2024-11-10T09:53:34 AST" name="beforeMethod" finished-at="2024-11-10T09:53:34 AST" duration-ms="73" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method signature="testReserveStayWithFreeCancelationAndLowCost()[pri:0, instance:appTests.StaysTest@aba625]" started-at="2024-11-10T09:53:34 AST" name="testReserveStayWithFreeCancelationAndLowCost" finished-at="2024-11-10T09:54:25 AST" duration-ms="50476" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testReserveStayWithFreeCancelationAndLowCost -->
+        <test-method is-config="true" signature="afterMethod()[pri:0, instance:appTests.StaysTest@aba625]" started-at="2024-11-10T09:54:25 AST" name="afterMethod" finished-at="2024-11-10T09:54:27 AST" duration-ms="2072" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method is-config="true" signature="afterClass()[pri:0, instance:appTests.StaysTest@aba625]" started-at="2024-11-10T09:54:27 AST" name="afterClass" finished-at="2024-11-10T09:54:28 AST" duration-ms="1150" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterClass -->
+        <test-method is-config="true" signature="afterSuite()[pri:0, instance:appTests.StaysTest@aba625]" started-at="2024-11-10T09:54:28 AST" name="afterSuite" finished-at="2024-11-10T09:54:28 AST" duration-ms="537" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterSuite -->
+      </class> <!-- appTests.StaysTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
