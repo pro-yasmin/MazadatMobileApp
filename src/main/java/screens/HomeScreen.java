@@ -29,11 +29,6 @@ public class HomeScreen {
     private WebElement homeTooltip;
 
 
-
-    public void skipIntroScreen() throws InterruptedException {
-        skipButton.click();
-    }
-
     public void iconsTooltip(){
         for(int i=5; i>0; i--){
             ActionsUtils.doubleClickElement(driver,homeButton);

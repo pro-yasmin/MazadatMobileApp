@@ -1,10 +1,12 @@
 package utils;
 
 //import io.appium.java_client.MobileElement;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
 //import org.openqa.selenium.By;
 //import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,13 +26,14 @@ public class WaitUtils {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-
+*/
     // Wait for element to be clickable
-    public void waitForElementClickable(MobileElement element, int timeoutInSeconds,AndroidDriver <MobileElement> driver) {
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+    public static void waitForElementClickable(WebElement element, int timeoutInSeconds, AppiumDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+/*
     // Wait for element to be invisible
     public void waitForElementInvisible(By locator, int timeoutInSeconds, AndroidDriver <MobileElement> driver) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);

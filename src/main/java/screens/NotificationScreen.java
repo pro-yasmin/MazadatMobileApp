@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.WaitUtils;
 
 import java.time.Duration;
 
@@ -23,14 +24,14 @@ public class NotificationScreen{
 	}
 
     // Locators for the login page elements
-    @AndroidFindBy(uiAutomator ="new UiSelector().resourceId(\"com.android.permissioncontroller:id/permission_deny_button\")")
+   // @AndroidFindBy(uiAutomator ="new UiSelector().resourceId(\"com.android.permissioncontroller:id/permission_deny_button\")")
+    @AndroidFindBy(id = "com.android.permissioncontroller:id/permission_allow_button")
     //  @iOSXCUITFindBy(accessibility = "username_field")
     private WebElement allowButton;
 
 
-   public void allowNotifications() throws InterruptedException {
-       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-       wait.until(ExpectedConditions.visibilityOf(allowButton));
+   public void allowNotifications(){
+       WaitUtils.waitForElementClickable(allowButton,2,driver);
        allowButton.click();
 
 

@@ -4,20 +4,18 @@
 
 <suite name="Mazadat App Suite">
     <listeners>
-       <listener class-name="listeners.StaysTestListener"></listener>
-     
+            <listener class-name="io.qameta.allure.testng.AllureTestNg" />
     </listeners>
     
    <test thread-count="5" name="test">
     <!-- parameter name="deviceName" value="TiramisuPrivacySandbox"></parameter -->
     <!--parameter name="platformName" value="Android"><-parameter-->
     <classes>
-       <class name="appTests.StaysTest">
+       <class name="appTests.OnboardingTest">
 
        
               <methods>
-					<include name="testLoginWithMail" />
-					
+					<include name="testOnBoarding" />
 				</methods>
 		
 		</class>

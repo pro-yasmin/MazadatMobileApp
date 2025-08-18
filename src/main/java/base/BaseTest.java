@@ -1,5 +1,6 @@
 package base;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -65,45 +66,58 @@ public void beforeMethod() {}
         }
     }
 
-
-    public  static void setup() {
-        String platformName = "Android";
+    public static void setup() {
         try {
-            if (platformName.equalsIgnoreCase("Android")) {
-                driver=setupAndroid();
-            } else if (platformName.equalsIgnoreCase("iOS")) {
-                driver=setupiOS();
+            if ("Android".equalsIgnoreCase(prop.getProperty("platformName"))) {
+                driver = setupAndroid();
+            } else if ("iOS".equalsIgnoreCase(prop.getProperty("platformName"))) {
+                driver = setupiOS();
             } else {
-                throw new IllegalArgumentException("Invalid platform: " + platformName);
+                throw new IllegalArgumentException("Invalid platform: " + prop.getProperty("platformName"));
             }
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            System.out.println("Error initializing driver: " + e.getMessage());
+            throw new RuntimeException("Failed to initialize Appium driver: " + e.getMessage());
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
     }
 
-    private static AndroidDriver setupAndroid() throws MalformedURLException {
+
+    private static AndroidDriver setupAndroid(){
+        // Read APK path from config
+        String appPath = prop.getProperty("androidAppPath");
+        File app = new File(appPath);
+
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
         options.setDeviceName("Pixel7Android15");
         //options.setPlatformVersion("your-android-version");
         options.setAppPackage("sa.elm.mazadat");
         options.setAppActivity("sa.elm.mazadat.android.MainActivity");
-        // options.setApp("/path/to/your/app.apk");
+        //options.setApp(app.getAbsolutePath());
 
-        return new AndroidDriver(new URL(APPIUM_URL), options);
+        try {
+            return new AndroidDriver(new URL(APPIUM_URL), options);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private  static IOSDriver setupiOS() throws MalformedURLException {
+        String appPath = prop.getProperty("iosAppPath");
+        File app = new File(appPath);
+
         XCUITestOptions options = new XCUITestOptions();
         options.setPlatformName("iOS");
         options.setDeviceName("your-ios-device-name");
         options.setPlatformVersion("your-ios-version");
         options.setBundleId("com.yourcompany.yourapp");
-        options.setApp("/path/to/your/app.ipa");
-
+        //options.setApp(app.exists() ? app.getAbsolutePath() : null);   // Install fresh if file exists
+        try {
         return new IOSDriver(new URL(APPIUM_URL), options);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static AppiumDriverLocalService startAppiumServer() {
