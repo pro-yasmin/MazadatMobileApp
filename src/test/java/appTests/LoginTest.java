@@ -4,10 +4,7 @@ import base.BaseTest;
 import io.qameta.allure.Allure;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import screens.HomeScreen;
-import screens.LoginScreen;
-import screens.NotificationScreen;
-import screens.OnboardingScreen;
+import screens.*;
 
 import java.io.IOException;
 
@@ -16,9 +13,10 @@ public class LoginTest extends BaseTest {
     NotificationScreen notificationScreenObj;
     HomeScreen homeScreenObj;
     OnboardingScreen onBoardingScreenObj;
+    CommonScreen commonScreenObj;
 
     @BeforeMethod
-    public void beforeMethod() {
+    public void beforeMethod(){
 
         //call action utils [relaunch app]
 
@@ -27,18 +25,17 @@ public class LoginTest extends BaseTest {
         notificationScreenObj = new NotificationScreen(driver);
         homeScreenObj = new HomeScreen(driver);
         onBoardingScreenObj = new OnboardingScreen(driver);
+        commonScreenObj = new CommonScreen(driver);
     }
 
     @Test
-    public void testLogin(){
+    public void testValidLogin(){
         Allure.step("=======Start test Login========");
         String nationalID = prop.getProperty("nationalID");
         String password = prop.getProperty("password");
 
-        notificationScreenObj.allowNotifications();
+        commonScreenObj.allowNotifications();
         onBoardingScreenObj.changeLanguageToAR();
         onBoardingScreenObj.skipIntroScreen();
-
-
     }
 }

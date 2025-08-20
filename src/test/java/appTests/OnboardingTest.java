@@ -14,10 +14,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import screens.HomeScreen;
-import screens.LoginScreen;
-import screens.NotificationScreen;
-import screens.OnboardingScreen;
+import screens.*;
+import utils.Constants;
 
 
 public class OnboardingTest extends BaseTest {
@@ -25,41 +23,57 @@ public class OnboardingTest extends BaseTest {
     NotificationScreen notificationScreenObj;
     HomeScreen homeScreenObj;
     OnboardingScreen onBoardingScreenObj;
+    CommonScreen commonScreenObj;
 
 	@BeforeMethod
 	public void beforeMethod() {
 
         //call action utils [relaunch app]
-
-	//driver=	setup("Android");
+        //driver=	setup("Android");
     loginScreenObj = new LoginScreen(driver);
     notificationScreenObj = new NotificationScreen(driver);
     homeScreenObj = new HomeScreen(driver);
     onBoardingScreenObj = new OnboardingScreen(driver);
+    commonScreenObj = new CommonScreen(driver);
 			}
 	
 	@Test
 	public void testOnBoarding(){
 		Allure.step("=======Start test onBoarding========");
-          String scanQrTitle= prop.getProperty("scanQRTitle");
-          String biddingTitle= prop.getProperty("biddingTitle");
+          String startTitleAr= prop.getProperty("welcometitleAr");
+          String scanQrTitleAr= prop.getProperty("scanQRTitleAr");
+          String biddingTitleAr= prop.getProperty("biddingTitleAr");
+          String platformType= Constants.ANDROIDPLATFORM;
 
-          notificationScreenObj.allowNotifications();
-          onBoardingScreenObj.changeLanguageToAR();
-        Assert.assertTrue(onBoardingScreenObj.checkOnboarding(scanQrTitle,biddingTitle));
+          if(platformType.equalsIgnoreCase(Constants.ANDROIDPLATFORM)){
+              commonScreenObj.allowNotifications();
+          }
 
-        //  homeScreenObj.iconsTooltip();
-        //  loginScreenObj.loginWithUserName(nationalID, password);
-	Allure.step("=======End test onBoarding========");
+          Assert.assertTrue(onBoardingScreenObj.validateOnboardScreens(scanQrTitleAr,biddingTitleAr));
+
+	   Allure.step("=======End test onBoarding========");
 	}
+
+    @Test
+    public void testHomeTour(){
+        Allure.step("=======Start test home tour========");
+          String homeTourAr= prop.getProperty("homeInfoAr");
+          String cardsTourAr=prop.getProperty("cardsInfoAr");
+          String qaCodeTourAr= prop.getProperty("scanQRCodeInfoAr");
+          String auctionTourAr= prop.getProperty("myAuctionsInfoAr");
+          String settingTourAr= prop.getProperty("settingInfoAr");
+
+         Assert.assertTrue(homeScreenObj.validateHomeTour(homeTourAr,cardsTourAr,qaCodeTourAr,auctionTourAr,settingTourAr));
+
+        Allure.step("=======End test home tour========");
+    }
 
 
 	
 	@AfterMethod
 	public void afterMethod(){
 	   Allure.addAttachment("ScreenShot", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
-
-	//	driver.closeApp();
+		//driver.closeApp();
 	}
 	
 }

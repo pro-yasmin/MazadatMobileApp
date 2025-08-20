@@ -1,8 +1,8 @@
 package utils;
 
 public class Constants {
-
+//define
 	
-	public static final String VERYGOOD="Very Good";
-	public static final String FREECANCELATIONFILTER="Free cancellation";
+	public static final String ANDROIDPLATFORM="Android";
+	public static final String IOSPLATFROM="IOS";
 }

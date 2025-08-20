@@ -7,18 +7,19 @@
             <listener class-name="io.qameta.allure.testng.AllureTestNg" />
     </listeners>
     
-   <test thread-count="5" name="test">
+   <test thread-count="2" name="test">
     <!-- parameter name="deviceName" value="TiramisuPrivacySandbox"></parameter -->
     <!--parameter name="platformName" value="Android"><-parameter-->
     <classes>
        <class name="appTests.OnboardingTest">
 
-       
               <methods>
 					<include name="testOnBoarding" />
+                  <include name="testHomeTour"/>
 				</methods>
 		
 		</class>
+
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

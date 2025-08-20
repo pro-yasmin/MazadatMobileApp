@@ -23,19 +23,6 @@ public class NotificationScreen{
         PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(10)), this);
 	}
 
-    // Locators for the login page elements
-   // @AndroidFindBy(uiAutomator ="new UiSelector().resourceId(\"com.android.permissioncontroller:id/permission_deny_button\")")
-    @AndroidFindBy(id = "com.android.permissioncontroller:id/permission_allow_button")
-    //  @iOSXCUITFindBy(accessibility = "username_field")
-    private WebElement allowButton;
-
-
-   public void allowNotifications(){
-       WaitUtils.waitForElementClickable(allowButton,2,driver);
-       allowButton.click();
-
-
-   }
 
 
 }

@@ -3,6 +3,7 @@ package screens;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
@@ -20,7 +21,7 @@ public class LoginScreen{
 
     // Locators for the login page elements
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Login\")")
-  //  @iOSXCUITFindBy(accessibility = "username_field")
+    @iOSXCUITFindBy(accessibility = "username_field")
     private WebElement loginButton;
 
     @AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.EditText\").instance(0)")

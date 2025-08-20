@@ -1,12 +1,10 @@
 package base;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Properties;
 
@@ -20,6 +18,7 @@ import io.appium.java_client.android.AndroidDriver;
 //import jdk.jpackage.internal.util.FileUtils;
 //import org.openqa.selenium.OutputType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -40,50 +39,49 @@ public class BaseTest {
         setup();
         //login
     }
-@BeforeMethod
-public void beforeMethod() {}
+    @BeforeMethod
+    public void beforeMethod() {
+
+    }
 
 
 
     public static void loadConfig() {
         // Load properties file once for the entire suite
-        try {
-            inputStream = new FileInputStream("src/main/resources/config/config.properties");
+        // Load properties file once for the entire suite
+        try (InputStreamReader reader = new InputStreamReader(
+                new FileInputStream("src/main/resources/config/config.properties"),
+                StandardCharsets.UTF_8)) {
+
             prop = new Properties();
-            prop.load(inputStream);
+            prop.load(reader);
+
         } catch (FileNotFoundException e) {
             System.err.println("Configuration file not found: " + e.getMessage());
         } catch (IOException e) {
             System.err.println("Error loading properties file: " + e.getMessage());
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
-    public static void setup() {
+
+    public  static void setup() {
+        String platformName = "Android";
         try {
-            if ("Android".equalsIgnoreCase(prop.getProperty("platformName"))) {
-                driver = setupAndroid();
-            } else if ("iOS".equalsIgnoreCase(prop.getProperty("platformName"))) {
-                driver = setupiOS();
+            if (platformName.equalsIgnoreCase("Android")) {
+                driver=setupAndroid();
+            } else if (platformName.equalsIgnoreCase("iOS")) {
+                driver=setupiOS();
             } else {
-                throw new IllegalArgumentException("Invalid platform: " + prop.getProperty("platformName"));
+                throw new IllegalArgumentException("Invalid platform: " + platformName);
             }
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to initialize Appium driver: " + e.getMessage());
+            System.out.println("Error initializing driver: " + e.getMessage());
         }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
     }
 
-
-    private static AndroidDriver setupAndroid(){
+    private static AndroidDriver setupAndroid() throws MalformedURLException {
         // Read APK path from config
         String appPath = prop.getProperty("androidAppPath");
         File app = new File(appPath);
@@ -96,11 +94,7 @@ public void beforeMethod() {}
         options.setAppActivity("sa.elm.mazadat.android.MainActivity");
         //options.setApp(app.getAbsolutePath());
 
-        try {
-            return new AndroidDriver(new URL(APPIUM_URL), options);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+        return new AndroidDriver(new URL(APPIUM_URL), options);
     }
 
     private  static IOSDriver setupiOS() throws MalformedURLException {
@@ -109,15 +103,16 @@ public void beforeMethod() {}
 
         XCUITestOptions options = new XCUITestOptions();
         options.setPlatformName("iOS");
-        options.setDeviceName("your-ios-device-name");
-        options.setPlatformVersion("your-ios-version");
-        options.setBundleId("com.yourcompany.yourapp");
+       // options.setDeviceName("your-ios-device-name");
+       // options.setPlatformVersion("your-ios-version");
+        options.setAutomationName("XCUITest");
+        options.setBundleId("sa.elm.mazadat.tameer");
+        options.setUdid("00008101-000921421A0A001E");
+        options.setCapability("autoAcceptAlerts", true);
+
         //options.setApp(app.exists() ? app.getAbsolutePath() : null);   // Install fresh if file exists
-        try {
+
         return new IOSDriver(new URL(APPIUM_URL), options);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public static AppiumDriverLocalService startAppiumServer() {
@@ -146,6 +141,31 @@ public void beforeMethod() {}
             serverSocket = null;
         }
         return isServerRunning;
+    }
+
+    public void relaunchApp() {
+        if (driver == null) {
+            throw new IllegalStateException("Driver is not initialized. Please start the driver before calling relaunchApp().");
+        }
+        try {
+            if (driver instanceof AndroidDriver) {
+                String appPackage = "sa.elm.mazadat";  // e.g., sa.elm.mazadat
+                ((AndroidDriver) driver).terminateApp(appPackage);
+                ((AndroidDriver) driver).activateApp(appPackage);
+            } else if (driver instanceof IOSDriver) {
+                String bundleId = prop.getProperty("bundleId");  // e.g., com.example.iosapp
+                ((IOSDriver) driver).terminateApp(bundleId);
+                ((IOSDriver) driver).activateApp(bundleId);
+            } else {
+                throw new UnsupportedOperationException("Relaunch not supported for driver type: " + driver.getClass());
+            }
+
+            System.out.println("App relaunched successfully.");
+
+        } catch (Exception e) {
+            System.err.println("Failed to relaunch app: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 

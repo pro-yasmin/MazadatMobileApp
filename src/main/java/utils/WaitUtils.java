@@ -33,6 +33,22 @@ public class WaitUtils {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    // Implicit wait setup
+    public static void setImplicitWait(int timeoutInSeconds,AppiumDriver driver) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeoutInSeconds));
+    }
+
+    //Wait for specific seconds
+    public static void waitForSeconds(int seconds){
+        try {
+            Thread.sleep(seconds * 1000L); // convert seconds to milliseconds
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // restore interrupted state
+            System.err.println("Wait was interrupted: " + e.getMessage());
+        }
+    }
+
+
 /*
     // Wait for element to be invisible
     public void waitForElementInvisible(By locator, int timeoutInSeconds, AndroidDriver <MobileElement> driver) {
